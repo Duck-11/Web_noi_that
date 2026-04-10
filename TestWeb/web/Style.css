@@ -1,0 +1,454 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Apr 10, 2026, 9:34:12 AM
+    Author     : TRAN ANH DUC
+*/
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+/* BODY */
+body {
+    background-color: #f9f9f9;
+    height: 90vh;
+}
+
+/* Cụm auth (giỏ hàng + đăng nhập + đăng ký) nằm cùng 1 hàng */
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Style cho cụm giỏ hàng */
+.cart-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #333;
+    font-weight: 500;
+}
+
+.cart-btn i {
+    color: #ff8c42;
+    font-size: 1.2rem;
+}
+
+/* Số lượng sản phẩm (badge nhỏ góc trên) */
+.cart-count {
+    background-color: #ff4242;
+    color: white;
+    font-size: 11px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border-radius: 9px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* Dùng vertical-align thay vì position relative để không làm vỡ hàng */
+    vertical-align: super;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.cart-btn:hover {
+    background-color: transparent !important; /* Không đổi màu nền khi hover giỏ hàng */
+    color: #ff8c42 !important;
+}
+
+/* Login/Register */
+.card {
+    border-radius: 15px;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #764ba2;
+}
+
+.btn-custom {
+    background: #764ba2;
+    color: white;
+}
+
+.btn-custom:hover {
+    background: #5a3d91;
+}
+
+.toggle-link {
+    cursor: pointer !important;
+    color: #764ba2;
+    font-weight: 500;
+}
+
+
+/* ===================== */
+/* BANNER */
+/* ===================== */
+.banner {
+    background: linear-gradient(90deg, #ff8c42, #ffb347);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+/* ===================== */
+/* TOP MENU */
+/* ===================== */
+.top-menu {
+    display: flex;
+    justify-content: space-between; /* Đẩy 2 cụm menu ra 2 đầu */
+    align-items: center;
+    padding: 0 50px; /* Tạo khoảng trống 2 bên rìa màn hình */
+}
+
+/* Nút Đăng ký có khung nổi bật hơn */
+.btn-register {
+    background-color: #ff8c42;
+    color: white !important; /* Ưu tiên màu trắng */
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.btn-register:hover {
+    background-color: #e6762f !important;
+}
+
+/* Nút Đăng nhập */
+.btn-login {
+    font-weight: bold;
+    background-color: #ff8c42;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.top-menu a {
+    padding: 15px 25px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.top-menu a:hover {
+    background-color: #ff8c42;
+    color: white;
+}
+
+/* ===================== */
+/* MAIN LAYOUT */
+/* ===================== */
+.container {
+    display: flex;
+    margin: 20px;
+}
+
+/* ===================== */
+/* LEFT MENU */
+/* ===================== */
+.left-menu {
+    width: 20%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.left-menu h3 {
+    margin-bottom: 10px;
+    color: #ff8c42;
+}
+
+.left-menu ul {
+    list-style: none;
+}
+
+.left-menu ul li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.left-menu ul li:hover {
+    background-color: #ffecd9;
+    color: #ff8c42;
+}
+
+/* ===================== */
+/* CONTENT */
+/* ===================== */
+.content {
+    width: 80%;
+    margin-left: 20px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    min-height: 400px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* ===================== */
+/* PRODUCT CARD */
+/* ===================== */
+.product {
+    width: 30%;
+    display: inline-block;
+    margin: 1.5%;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    transition: 0.3s;
+    border: 1px solid #eee;
+}
+
+.product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.product img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.product h4 {
+    margin: 10px 0;
+    color: #333;
+}
+
+.product p {
+    color: #ff8c42;
+    font-weight: bold;
+}
+
+/* ===================== */
+/* FORM (REGISTER + CONTACT) */
+/* ===================== */
+form {
+    max-width: 500px;
+    margin: auto;
+}
+
+form input, form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff8c42;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.product button {
+    padding: 8px 15px;
+    background-color: #ff8c42;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.product button:hover {
+    background-color: #e6762f;
+}
+
+form button:hover {
+    background-color: #e6762f;
+}
+
+/* ===================== */
+/* FOOTER */
+/* ===================== */
+.footer {
+    background-color: #cccccc;
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+    border-top: 2px solid #eee;
+    font-size: 14px;
+    color: black;
+}
+
+ 
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(114, 104, 104, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(6px);
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+ 
+/*         ===== MODAL BOX ===== */
+        .modal-box {
+            background: #1e1e1e;
+            border-radius: 10px;
+            padding: 40px 36px 32px;
+            width: 100%;
+            max-width: 460px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: slideDown 0.25s ease;
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-30px); opacity: 0; }
+            to   { transform: translateY(0);     opacity: 1; }
+        }
+        .modal-box h2 {
+            text-align: center;
+            color: #ffffff;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+        }
+        
+        .modal-box input[type="text"],
+        .modal-box input[type="email"],
+        .modal-box input[type="password"] {
+            width: 100%;
+            padding: 12px 14px;
+            background: #2d2d2d;
+            border: 1px solid #3a3a3a;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 15px;
+            margin-bottom: 18px;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+        .modal-box input:focus { border-color: #f57c00; }
+        .modal-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 4px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .modal-links { font-size: 13px; color: #aaa; }
+        .modal-links a { color: #aaa; text-decoration: none; transition: color 0.2s; }
+        .modal-links a:hover { color: #f57c00; }
+        .modal-links span { margin: 0 6px; }
+        .modal-btn-group { display: flex; gap: 10px; }
+        .btn-submit {
+            background: #f57c00; color: #fff; border: none;
+            border-radius: 6px; padding: 10px 24px;
+            font-size: 14px; font-weight: 600; cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-submit:hover { background: #e06900; }
+        .btn-cancel {
+            background: #3a7bd5; color: #fff; border: none;
+            border-radius: 6px; padding: 10px 24px;
+            font-size: 14px; font-weight: 600; cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-cancel:hover { background: #2d6cc0; }
+        .modal-social {
+            display: flex; justify-content: center;
+            gap: 16px; margin-top: 22px;
+        }
+        .social-btn {
+            width: 42px; height: 42px; border-radius: 50%;
+            border: none; cursor: pointer; font-size: 18px; color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 0.15s, opacity 0.15s;
+        }
+        .social-btn:hover { transform: scale(1.1); opacity: 0.9; }
+        .social-btn.fb { background: #1877f2; }
+        .social-btn.gg { background: #db4437; }
+        .modal-switch {
+            text-align: center; margin-top: 18px;
+            font-size: 13px; color: #888;
+        }
+
+/*         Giữ style giống <a> cho button nav */
+        .auth-buttons .btn-login,
+        .auth-buttons .btn-register {
+            cursor: pointer;
+            font-family: inherit;
+        }
+/* NỀN ĐEN MỜ */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.7);
+
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+/* BOX LOGIN */
+.modal-content {
+    background: #ffffffe;
+    padding: 30px;
+    width: 400px;
+    border-radius: 10px;
+    color: white;
+}
+
+/* INPUT */
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background: #333;
+    border: none;
+    color: white;
+}
+
+/* BUTTON */
+.modal-content button {
+    padding: 10px 15px;
+    background: orange;
+    border: none;
+    cursor: pointer;
+}
+
+/* NÚT ĐÓNG */
+.close {
+    float: right;
+    font-size: 25px;
+    cursor: pointer;
+    color:#ffffff;
+}
+
