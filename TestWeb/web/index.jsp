@@ -235,7 +235,11 @@ function switchModal(closeId, openId) {
                 btn.innerText = "...";
 
                 // Hiện tin nhắn của bạn lên khung chat
-               
+                let localReply = botReply(msg);
+                    if (localReply) {
+                    addMessage("Bot", localReply);
+                    return;
+                }
 
                 fetch("<%=request.getContextPath()%>/ChatServlet", {
                     method: "POST",
@@ -272,11 +276,6 @@ function switchModal(closeId, openId) {
                 box.innerHTML += `<p class="${className}"><b>${sender}:</b> ${text}</p>`;
                 box.scrollTop = box.scrollHeight;
             }
-//            document.getElementById("chatInput").addEventListener("keypress", function (e) {
-//                if (e.key === "Enter") {
-//                    sendMsg();
-//                }
-//            });
 
             /* 🔥 CHATBOT LOGIC OFFLINE */
             function botReply(msg) {
