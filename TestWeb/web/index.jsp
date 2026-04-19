@@ -169,6 +169,24 @@
     </div>
 </div>
 
+
+        <div id="chatIcon" onclick="toggleChat()" >🍃</div>
+
+        <!-- 🔥 CHAT SIDEBAR -->
+        <div id="chatSidebar">
+            <div class="chat-header">
+                Chat AI
+                <span onclick="toggleChat()" style="cursor:pointer;">&times;</span>
+            </div>
+
+            <div id="chatMessages"></div>
+
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Nhập câu hỏi...">
+                <button onclick="sendMsg()">Gửi</button>
+            </div>
+        </div>
+
 <script>
 let cartCount = 0;
 function addToCart() {
@@ -191,6 +209,84 @@ function switchModal(closeId, openId) {
     document.getElementById(openId).style.display = "flex";
 }
 
+// chatbot
+            function toggleChat() {
+                let chat = document.getElementById("chatSidebar");
+                // Nếu đang ẩn hoặc chưa có giá trị, thì cho hiện ra
+                chat.classList.toggle("open");
+            }
+
+            let isSending = false;
+
+            function sendMsg() {
+                let input = document.getElementById("chatInput");
+                let btn = document.querySelector(".chat-input button");
+                let msg = input.value.trim();
+
+                if (msg === "" || isSending)
+                    return;
+                
+                 addMessage("Bạn", msg);
+                input.value = "";
+
+                // Khóa giao diện
+                isSending = true;
+                btn.disabled = true;
+                btn.innerText = "...";
+
+                // Hiện tin nhắn của bạn lên khung chat
+               
+
+                fetch("<%=request.getContextPath()%>/ChatServlet", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/x-www-form-urlencoded"},
+                    body: "message=" + encodeURIComponent(msg)
+                })
+                        .then(res => res.text())
+                        .then(data => {
+                            if (data.includes("429")) {
+                                addMessage("Bot", "Hạn mức API đã hết, vui lòng thử lại sau 1 phút! ☕");
+                            } else if (data.includes("Error") || data === "") {
+                                addMessage("Bot", "Không tìm thấy dữ liệu sản phẩm phù hợp.");
+                            } else {
+                                addMessage("Bot", data);
+                            }
+                        })
+                        .catch(err => {
+                            addMessage("Bot", "Lỗi kết nối Server.");
+                        })
+                        .finally(() => {
+                            // Ép giãn cách 3 giây để tránh lỗi 429
+                            setTimeout(() => {
+                                isSending = false;
+                                btn.disabled = false;
+                                btn.innerText = "Gửi";
+                            }, 3000);
+                        });
+            }
+
+            function addMessage(sender, text) {
+                if(!text) return;
+                let box = document.getElementById("chatMessages");
+                let className = (sender === "Bạn") ? "user-msg" : "bot-msg";
+                box.innerHTML += `<p class="${className}"><b>${sender}:</b> ${text}</p>`;
+                box.scrollTop = box.scrollHeight;
+            }
+//            document.getElementById("chatInput").addEventListener("keypress", function (e) {
+//                if (e.key === "Enter") {
+//                    sendMsg();
+//                }
+//            });
+
+            /* 🔥 CHATBOT LOGIC OFFLINE */
+            function botReply(msg) {
+                msg = msg.toLowerCase();
+
+                // 👋 CHÀO HỎI
+                if (msg.includes("xin chào") || msg.includes("hello") || msg.includes("hi")) {
+                    return "Xin chào 👋! Mình là trợ lý nội thất. Bạn muốn tìm sản phẩm gì?";
+                }
+            }
 
 </script>
 
